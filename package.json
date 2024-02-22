@@ -1,19 +1,22 @@
 {
-  "name": "typescript-project",
+  "name": "codebase-summarizer",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "summarize": "npx tsc && node --experimental-specifier-resolution=node dist/index"
+    "summarize": "npx tsc && node --experimental-specifier-resolution=node dist/index",
+    "electron": "npx tsc && electron dist/main.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@types/axios": "^0.14.0",
+    "@types/electron": "^1.6.10",
     "@types/node": "^20.11.19",
+    "electron": "^29.0.1",
     "typescript": "^5.3.3"
   },
   "dependencies": {

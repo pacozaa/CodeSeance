@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import { processFile } from './processUtils';
+import { processFile } from './processUtils.js';
 
 export const traverseDirectory = async (directoryPath: string): Promise<void> => {
   const apiUrl = 'https://api.example.com/summarize';
