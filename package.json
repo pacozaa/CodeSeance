@@ -19,6 +19,8 @@
   "dependencies": {
     "@langchain/community": "^0.0.32",
     "axios": "^1.6.7",
+    "file-type": "^19.0.0",
+    "ignore": "^5.3.1",
     "langchain": "^0.1.21"
   }
 }
