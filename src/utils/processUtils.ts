@@ -10,21 +10,12 @@ import { writeSummaryToFile } from './fileUtils.js';
 
 
 
-const isTextFile = async (filePath: string): Promise<boolean> => {
+const isNotImage = async (filePath: string): Promise<boolean> => {
 
-    // const mimeType = await new Promise<string>((resolve, reject) => {
-    //     magic.detectFile(filePath, (err, result) => {
-    //         if (err) {
-    //             reject(err);
-    //         } else {
-    //             resolve(result);
-    //         }
-    //     });
-    // });
     const result = await fileTypeFromFile(filePath)
-    const mime = result?.mime.startsWith('text/')
+    const isImage = result?.mime.startsWith('image/')
 
-    return mime?mime:false;
+    return isImage?false:true;
 }
 
 const getGitignoreFilter = async (directoryPath: string) => {
@@ -44,8 +35,8 @@ export const processFile = async (
     filePath: string,
     directoryPath: string
 ): Promise<void> => {
-    if (!await isTextFile(filePath)) {
-        console.log(`Skipping non-text file: ${filePath}`);
+    if (!await isNotImage(filePath)) {
+        // console.log(`Skipping image file: ${filePath}`);
         return;
     }
     // Get gitignore filter  
