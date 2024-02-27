@@ -18,9 +18,14 @@ const isNotImage = async (filePath: string): Promise<boolean> => {
     return isImage?false:true;
 }
 
+const isDotPrefix = (filePath: string): boolean =>{
+    return path.basename(filePath).startsWith('.')
+}
+
 const isSummarizedMD = (filePath: string): boolean => {
 
     const result = path.extname(filePath)
+    //Fixed to .summarized.md
     return result==='.md'
 }
 
@@ -42,6 +47,9 @@ export const processFile = async (
     directoryPath: string
 ): Promise<void> => {
     //Add more file skipping utils, custom file name and such
+    if(isDotPrefix(filePath)){
+        return
+    }
     if(isSummarizedMD(filePath)){
         return;
     }
