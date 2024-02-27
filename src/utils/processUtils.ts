@@ -41,6 +41,7 @@ export const processFile = async (
     filePath: string,
     directoryPath: string
 ): Promise<void> => {
+    //Add more file skipping utils, custom file name and such
     if(isSummarizedMD(filePath)){
         return;
     }
@@ -59,8 +60,8 @@ export const processFile = async (
     const fileContent = await readFileContents(filePath);
     const summary = await summarizeFile(fileContent, filePath, directoryPath);
     await writeSummaryToFile(filePath, summary);
-    //TableFile, Improvement, Conversion
-    //Load file directory three
+    //More type of summarization or useful info TableFile, Improvement, Conversion
+    //Load file directory three in to context
     /**
      * https://github.com/euberdeveloper/dree
      * https://github.com/mihneadb/node-directory-tree

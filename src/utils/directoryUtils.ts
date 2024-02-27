@@ -11,6 +11,7 @@ export const traverseDirectory = async (directoryPath: string): Promise<void> =>
       const stat = await fs.promises.stat(filePath);
 
       if (stat.isDirectory()) {
+        // Add folder skip utils and can add more custom skip folder name, same for files
         if (await isHiddenFolder(directoryPath)) {
           console.log(`Skipping hidden folder ${directoryPath}`);
           return;
