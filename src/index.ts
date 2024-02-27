@@ -1,7 +1,16 @@
 import { traverseDirectory } from './utils/directoryUtils.js';
 
 const main = async () => {
-  const directoryPath = '/Users/xx/MobileAgent';
+  // Check if at least one command line argument is provided
+  if (process.argv.length < 3) {
+    console.error('Usage: node index.ts <your_argument>');
+    process.exit(1);
+  }
+  // Access the command line argument
+  const directoryPath: string = process.argv[2];
+  console.log({directoryPath})
+
+  // const directoryPath = '/Users/xx/MobileAgent';
 
   await traverseDirectory(directoryPath);
 };

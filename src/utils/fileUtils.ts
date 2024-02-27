@@ -14,7 +14,7 @@ export const readFileContents = async (filePath: string): Promise<string> => {
 export const writeSummaryToFile = async (filePath: string, summary: string): Promise<void> => {
     const dirname = path.dirname(filePath);
     const basename = path.basename(filePath, path.extname(filePath));
-    const summaryFilePath = path.join(dirname, `${basename}.summarized`);
+    const summaryFilePath = path.join(dirname, `${basename}.summarized.md`);
 
     await fs.promises.writeFile(summaryFilePath, summary, 'utf-8');
 };

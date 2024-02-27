@@ -1,7 +1,7 @@
 
-import axios from 'axios';
 import * as path from 'path';
-import { bedrock } from '../llm/bedrock';
+import { bedrock } from '../llm/bedrock.js';
+import { getOllamaStream } from '../llm/ollama.js';
 
 interface SummaryRequest {
     text: string;
@@ -14,16 +14,25 @@ interface SummaryResponse {
 
 export const summarizeFile = async (fileContent: string, filePath: string, rootPath: string): Promise<string> => {
     const relativePath = path.relative(rootPath, filePath);
-    // bedrock.getNumTokens(fileContent)
-    const metaData={
-        filePath,
-        rootPath
-    }
+    const prompt = `
+    [Instruction] Summarized this file content [/Instruction] 
+
+    [File Content]
+    ${fileContent}
+    [/File Content]
+
+    ** Summary **
+    `
+    // const res = await bedrock.invoke(prompt)
+    const res = await getOllamaStream(prompt)
+   
+    console.log({prompt,res})
+
     return `
     <MetaData>
-    ${metaData}
+    ${filePath}
     </MetaData>
-    helloworld 
+    ${res}
     `
 };
 

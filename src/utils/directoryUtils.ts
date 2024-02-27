@@ -11,6 +11,10 @@ export const traverseDirectory = async (directoryPath: string): Promise<void> =>
       const stat = await fs.promises.stat(filePath);
 
       if (stat.isDirectory()) {
+        if (await isHiddenFolder(directoryPath)) {
+          console.log(`Skipping hidden folder ${directoryPath}`);
+          return;
+        }
         await traverseDirectory(filePath);
       } else {
         await processFile(filePath, directoryPath);
@@ -21,3 +25,11 @@ export const traverseDirectory = async (directoryPath: string): Promise<void> =>
     throw error;
   }
 };
+
+export const isHiddenFolder=async(folderPath: string): Promise<boolean>=> {
+
+  const folderName = path.basename(folderPath);
+
+  return folderName.startsWith('.');
+
+}
