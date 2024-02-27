@@ -24,6 +24,7 @@ export const summarizeFile = async (fileContent: string, filePath: string, rootP
     ** Summary **
     `
     // const res = await bedrock.invoke(prompt)
+    // const res = await openai.invoke(prompt)
     const res = await getOllamaStream(prompt)
    
     console.log({prompt,res})
