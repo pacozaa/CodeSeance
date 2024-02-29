@@ -1,6 +1,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import { processFile } from './processUtils.js';
+import { isGitIgnore, isHiddenPath } from './skipUtils.js';
 
 export const traverseDirectory = async (directoryPath: string): Promise<void> => {
   try {
@@ -9,12 +10,19 @@ export const traverseDirectory = async (directoryPath: string): Promise<void> =>
     for (const file of files) {
       const filePath = path.join(directoryPath, file);
       const stat = await fs.promises.stat(filePath);
-
+      // console.log({
+      //   file,
+      //   filePath,
+      //   directoryPath
+      // })
       if (stat.isDirectory()) {
         // Add folder skip utils and can add more custom skip folder name, same for files
-        if (await isHiddenFolder(directoryPath)) {
-          console.log(`Skipping hidden folder ${directoryPath}`);
-          return;
+        if (isHiddenPath(file)) {
+          console.log(`Skipping hidden folder ${file}`);
+          continue;
+        }
+        if (await isGitIgnore(directoryPath, filePath)) {
+          continue;
         }
         await traverseDirectory(filePath);
       } else {
@@ -26,11 +34,3 @@ export const traverseDirectory = async (directoryPath: string): Promise<void> =>
     throw error;
   }
 };
-
-export const isHiddenFolder=async(folderPath: string): Promise<boolean>=> {
-
-  const folderName = path.basename(folderPath);
-
-  return folderName.startsWith('.');
-
-}

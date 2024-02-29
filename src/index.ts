@@ -8,7 +8,6 @@ const main = async () => {
   }
   // Access the command line argument
   const directoryPath: string = process.argv[2];
-  console.log({directoryPath})
 
   // const directoryPath = '/Users/xx/MobileAgent';
 
